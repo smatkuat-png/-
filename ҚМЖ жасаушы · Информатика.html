@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ҚМЖ жасаушы · Информатика</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--ink:#1b2333;--mut:#5d6a85;--line:#d9e0ee;--pri:#2457d6;--pri2:#e8eefc;--head:#1f3a7a;--hl:#f0f4ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10151f;--card:#18202e;--ink:#e8edf7;--mut:#9aa7c2;--line:#2c3850;--pri:#6c93ff;--pri2:#1f2b47;--head:#27407f;--hl:#1c2740;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10151f;--card:#18202e;--ink:#e8edf7;--mut:#9aa7c2;--line:#2c3850;--pri:#6c93ff;--pri2:#1f2b47;--head:#27407f;--hl:#1c2740;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:linear-gradient(120deg,#1f3a7a,#2457d6);color:#fff;padding:22px 16px}
+header h1{margin:0;font-size:22px}header p{margin:4px 0 0;opacity:.85;font-size:14px}
+.wrap{max-width:1000px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+label{display:block;font-size:12.5px;font-weight:600;color:var(--mut);margin-bottom:4px}
+input,select,textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--ink);font:inherit}
+textarea{min-height:60px;resize:vertical}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 14px;border-radius:9px}
+button.p{background:var(--pri);border-color:var(--pri);color:#fff;font-weight:600}
+button:disabled{opacity:.6;cursor:wait}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.err{color:#c0392b;margin-top:8px}.hint{color:var(--mut);font-size:13px}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.doc h2{font-size:16px;color:var(--pri);margin:22px 0 8px;padding-bottom:4px;border-bottom:2px solid var(--pri2)}
+.doc h2:first-child{margin-top:0}
+.doc h3{text-align:center;font-size:17px;margin:0 0 12px}
+.tw{overflow-x:auto;max-width:100%}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:13.5px}
+th,td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+th{background:var(--head);color:#fff;font-weight:600}
+td.k{background:var(--hl);font-weight:600;width:32%}
+tr:nth-child(even) td:not(.k){background:color-mix(in srgb,var(--hl) 45%,transparent)}
+pre{background:#0f172a;color:#e2e8f0;padding:12px;border-radius:10px;overflow-x:auto;font:13px/1.45 ui-monospace,Consolas,monospace;white-space:pre}
+ul{margin:4px 0;padding-left:20px}
+[contenteditable]:focus{outline:2px solid var(--pri);outline-offset:1px;border-radius:4px}
+.tag{display:inline-block;background:var(--pri2);color:var(--pri);border-radius:99px;padding:2px 10px;font-size:12px;margin-left:6px}
+.hist{display:flex;flex-direction:column;gap:6px}.hist button{text-align:left}
+@media print{header,.card,.row,.noprint{display:none!important}body{background:#fff}.doc{border:0}}
+</style>
+</head>
+<body>
+<header><h1>📘 ҚМЖ жасаушы · Информатика</h1><p>8–11 сыныптарға арналған қысқа мерзімді жоспар — бір батырмамен</p></header>
+<div class="wrap">
+<div class="card noprint">
+ <div class="grid">
+  <div><label>Сынып</label><select id="cls"><option>8</option><option>9</option><option>10</option><option>11</option></select></div>
+  <div id="trW" style="display:none"><label>Бағыт</label><select id="trk"><option>Жаратылыстану-математика</option><option>Қоғамдық-гуманитарлық</option></select></div>
+  <div><label>Сабақ түрі</label><select id="typ"><option>Аралас</option><option>Теориялық</option><option>Практикалық (компьютерде)</option></select></div>
+  <div><label>Жоспар тілі</label><select id="lng"><option value="қазақ">Қазақша</option><option value="орыс">Орысша</option></select></div>
+  <div><label>Бөлім</label><input id="sec" placeholder="мыс: Алгоритмдер және бағдарламалау"></div>
+  <div style="grid-column:span 2"><label>Сабақтың тақырыбы *</label><input id="top" placeholder="мыс: Python-да цикл операторлары"></div>
+  <div><label>Мұғалімнің аты-жөні</label><input id="tch"></div>
+  <div><label>Күні</label><input id="dat" type="date"></div>
+  <div><label>Ұзақтығы (мин)</label><input id="dur" type="number" value="40" min="20" max="90"></div>
+  <div><label>Оқу мақсатының коды</label><input id="cod" placeholder="бос болса ИИ ұсынады"></div>
+  <div><label>Бағдарлама / тіл</label><input id="tool" placeholder="Python, Excel, Scratch…"></div>
+ </div>
+ <div style="margin-top:12px"><label>Қосымша тілектер</label><textarea id="ext" placeholder="топтық жұмыс, Kahoot, Wordwall, саралау деңгейі…"></textarea></div>
+ <div class="row"><button class="p" id="go">✨ ҚМЖ жасау</button><span class="hint" id="st"></span></div>
+ <div class="err" id="er"></div>
+</div>
+<div id="out"></div>
+<div class="card noprint" id="hW" style="display:none"><b>🕘 Сақталған жоспарлар</b><div class="hist" id="hist" style="margin-top:8px"></div></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+let plan=null,meta=null,sample=null,dl=null;
+const esc=s=>String(s??"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const li=a=>"<ul>"+(a||[]).map(x=>"<li>"+esc(x)+"</li>").join("")+"</ul>";
+$("dat").valueAsDate=new Date();
+$("cls").onchange=()=>{$("trW").style.display=+$("cls").value>=10?"":"none"};
+(async()=>{try{sample=await claude.use("sample")}catch(e){}try{dl=await claude.use("downloads")}catch(e){}})();
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||"[]");localStorage.setItem(k,JSON.stringify(v))}catch(e){return[]}}
+function hist(){const h=store("qmj_h");$("hW").style.display=h.length?"":"none";$("hist").innerHTML="";h.forEach((x,i)=>{const b=document.createElement("button");b.textContent=`${x.meta.cls}-сынып · ${x.meta.top} · ${x.meta.dat}`;b.onclick=()=>{meta=x.meta;plan=x.plan;render();scrollTo({top:$("out").offsetTop,behavior:"smooth"})};$("hist").appendChild(b)})}
+hist();
+function read(){return{cls:$("cls").value,trk:+$("cls").value>=10?$("trk").value:"",typ:$("typ").value,lng:$("lng").value,sec:$("sec").value,top:$("top").value.trim(),tch:$("tch").value,dat:$("dat").value,dur:$("dur").value||40,cod:$("cod").value,tool:$("tool").value,ext:$("ext").value}}
+async function gen(){
+ const m=read();$("er").textContent="";
+ if(!m.top){$("er").textContent="Сабақтың тақырыбын жазыңыз.";return}
+ if(!sample){$("er").textContent="ИИ қолжетімсіз: бетті Claude ішінде ашыңыз.";return}
+ $("go").disabled=true;$("st").textContent="Жоспар жасалуда… 20–40 секунд";
+ const P=`Сен Қазақстанның жаңартылған білім мазмұны бағдарламасын жақсы білетін информатика әдіскерісің. ${m.lng} тілінде ${m.cls}-сынып (${m.trk||"жалпы"}) информатикасынан бір сабаққа ҚМЖ жаса.
+Бөлім: ${m.sec||"бағдарламаға сай анықта"}. Тақырып: ${m.top}. Ұзақтығы: ${m.dur} мин. Түрі: ${m.typ}. Құрал: ${m.tool||"тақырыпқа сай"}. Оқу мақсатының коды: ${m.cod||"типтік бағдарламаға сай ұсын"}. Тілектер: ${m.ext||"жоқ"}.
+Ережелер: мақсаттар мен критерийлер өлшенетін болсын; кезеңдер уақыты ${m.dur} минутқа тең болсын (басы, ортасы, соңы, 4–6 кезең); тапсырмалар жасқа сай; код жұмыс істейтін және қысқа болсын; оқу мақсатының кодына сенімсіз болсаң, соңына " (тексеру керек)" қос; нақты емес деректі ойдан шығарма.
+Тек JSON қайтар, мына құрылыммен:
+{"section":"","code":"","objective":"","goal":"","criteria":["",""],"stages":[{"stage":"","time":"","teacher":"","student":"","assess":"","res":""}],"task":{"text":"","io":"","code":""},"diff":{"high":"","support":""},"assess":{"formative":"","descr":[{"d":"","s":""}]},"reflection":["",""],"safety":["",""],"values":"","cross":""}`;
+ try{plan=await sample.json(P,{modelTier:"default",cache:false});meta=m;render();
+  const h=store("qmj_h");h.unshift({meta,plan});store("qmj_h",h.slice(0,15));hist();
+  scrollTo({top:$("out").offsetTop,behavior:"smooth"})
+ }catch(e){$("er").textContent="Қате: "+(e.code==="not_granted"?"рұқсат берілмеді":(e.message||"қайталап көріңіз"))}
+ $("go").disabled=false;$("st").textContent="";
+}
+$("go").onclick=gen;
+function render(){
+ const p=plan,m=meta,E=(k,v)=>`<tr><td class="k">${k}</td><td contenteditable>${v}</td></tr>`;
+ const st=(p.stages||[]).map(s=>`<tr><td contenteditable><b>${esc(s.stage)}</b><br>${esc(s.time)}</td><td contenteditable>${esc(s.teacher)}</td><td contenteditable>${esc(s.student)}</td><td contenteditable>${esc(s.assess)}</td><td contenteditable>${esc(s.res)}</td></tr>`).join("");
+ const ds=(p.assess?.descr||[]).map(d=>`<tr><td contenteditable>${esc(d.d)}</td><td contenteditable style="width:90px;text-align:center">${esc(d.s)}</td></tr>`).join("");
+ $("out").innerHTML=`<div class="doc" id="doc">
+ <h3>Қысқа мерзімді жоспар (ҚМЖ) · Информатика <span class="tag">${esc(m.cls)}-сынып</span></h3>
+ <div class="tw"><table>${E("Бөлім",esc(m.sec||p.section))}${E("Мұғалімнің аты-жөні",esc(m.tch))}${E("Күні",esc(m.dat))}${E("Сынып",esc(m.cls)+(m.trk?" · "+esc(m.trk):""))}${E("Қатысқандар / қатыспағандар","&nbsp;")}${E("Сабақтың тақырыбы",esc(m.top))}${E("Оқу мақсаты",esc((m.cod||p.code)+" — "+p.objective))}${E("Сабақтың мақсаты",esc(p.goal))}${E("Бағалау критерийлері",li(p.criteria))}</table></div>
+ <h2>Сабақтың барысы</h2>
+ <div class="tw"><table><tr><th>Кезең / уақыт</th><th>Педагогтың әрекеті</th><th>Оқушының әрекеті</th><th>Бағалау</th><th>Ресурстар</th></tr>${st}</table></div>
+ <h2>Практикалық тапсырма</h2>
+ <p contenteditable>${esc(p.task?.text)}</p>
+ ${p.task?.io?`<p class="hint" contenteditable><b>Кіріс/шығыс:</b> ${esc(p.task.io)}</p>`:""}
+ ${p.task?.code?`<div class="hint">Мұғалімге арналған жауап кілті:</div><pre contenteditable>${esc(p.task.code)}</pre>`:""}
+ <h2>Саралау</h2>
+ <div class="tw"><table><tr><th>Қабілеті жоғары оқушыларға</th><th>Қолдау қажет оқушыларға</th></tr><tr><td contenteditable>${esc(p.diff?.high)}</td><td contenteditable>${esc(p.diff?.support)}</td></tr></table></div>
+ <h2>Бағалау</h2><p contenteditable>${esc(p.assess?.formative)}</p>
+ <div class="tw"><table><tr><th>Дескриптор</th><th>Балл</th></tr>${ds}</table></div>
+ <h2>Рефлексия</h2><div contenteditable>${li(p.reflection)}</div>
+ <h2>Денсаулық және қауіпсіздік</h2><div contenteditable>${li(p.safety)}</div>
+ <h2>Құндылықтарға баулу · пәнаралық байланыс</h2><p contenteditable>${esc(p.values)}<br>${esc(p.cross)}</p>
+ </div>
+ <div class="row noprint"><button class="p" id="dw">⬇️ Word үшін жүктеу</button><button id="pr">🖨️ Басып шығару / PDF</button><button id="rg">🔄 Қайта жасау</button><span class="hint">Кез келген ұяшықты тікелей басып өңдеуге болады</span></div><div class="err noprint" id="er2"></div>`;
+ $("rg").onclick=()=>{$("cls").value=meta.cls;gen()};
+ $("pr").onclick=()=>{try{print()}catch(e){$("er2").textContent="Басып шығару мұнда қолжетімсіз: жүктеп алып Word-тан басыңыз."}};
+ $("dw").onclick=async()=>{
+  if(!dl){$("er2").textContent="Жүктеу қолжетімсіз.";return}
+  const css="body{font-family:'Times New Roman';font-size:11pt}table{border-collapse:collapse;width:100%}th,td{border:1px solid #444;padding:4px;vertical-align:top}th{background:#1f3a7a;color:#fff}td.k{background:#eef2fb;font-weight:bold;width:30%}h2{color:#1f3a7a;font-size:13pt}h3{text-align:center}pre{font-family:Consolas;background:#f1f1f1;padding:6px;border:1px solid #ccc}";
+  const html=`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8"><style>@page{size:A4 landscape;margin:1.5cm}${css}</style></head><body>${$("doc").innerHTML.replace(/ contenteditable/g,"")}</body></html>`;
+  try{await dl.save({filename:`KMJ_${meta.cls}-synyp_${Date.now()%100000}.html`,data:new Blob(["\ufeff"+html],{type:"text/html"})})}catch(e){if(e.code!=="declined")$("er2").textContent="Жүктеу қатесі: "+(e.message||e.code)}
+ };
+}
+</script>
+</body>
+</html>
